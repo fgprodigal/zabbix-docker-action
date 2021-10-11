@@ -3,8 +3,11 @@ name: Build Zabbix Web Image
 on:
   release:
     types: [published]
-  # schedule:
-  #   - cron: 0 16 * * *
+  schedule:
+    - cron: 0 16 * * *
+  push:
+    branches:
+      - master
   watch:
     types: started
 
