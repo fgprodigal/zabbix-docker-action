@@ -1,8 +1,8 @@
 FROM zabbix/zabbix-web-nginx-mysql:ubuntu-trunk
 
-USER root
+# USER root
 
-RUN sed -i 's/5050072/5050068/g' /usr/share/zabbix/include/defines.inc.php
+# RUN sed -i 's/5050072/5050068/g' /usr/share/zabbix/include/defines.inc.php
 
 USER 1997
 
