@@ -11,7 +11,18 @@ RUN apt update && apt install -y curl gnupg libaio-dev unzip && \
   wget https://download.oracle.com/otn_software/linux/instantclient/1912000/instantclient-odbc-linux.x64-19.12.0.0.0dbru.zip && \
   unzip instantclient-basic-linux.x64-19.12.0.0.0dbru.zip -d /opt/oracle/ && \
   unzip instantclient-odbc-linux.x64-19.12.0.0.0dbru.zip -d /opt/oracle/ && \
-  rm -rf instantclient-*.zip
+  rm -rf instantclient-*.zip && \
+  sed -i '1iopenssl_conf = default_conf\
+\
+[ default_conf ]\
+ssl_conf = ssl_sect\
+\
+[ssl_sect]\
+system_default = system_default_sect\
+\
+[system_default_sect]\
+MinProtocol = TLSv1.0\
+CipherString = DEFAULT@SECLEVEL=1' /etc/ssl/openssl.cnf
 
 USER 1997
 
