@@ -11,13 +11,12 @@ RUN apt update && apt install -y curl gnupg libaio-dev unzip && \
   wget https://download.oracle.com/otn_software/linux/instantclient/1912000/instantclient-odbc-linux.x64-19.12.0.0.0dbru.zip && \
   unzip instantclient-basic-linux.x64-19.12.0.0.0dbru.zip -d /opt/oracle/ && \
   unzip instantclient-odbc-linux.x64-19.12.0.0.0dbru.zip -d /opt/oracle/ && \
-  rm -rf instantclient-*.zip && \
-  sed -i '1iopenssl_conf = default_conf\n\n[ default_conf ]\nssl_conf = ssl_sect\n\n[ssl_sect]\nsystem_default = system_default_sect\n\n[system_default_sect]\nMinProtocol = TLSv1.0\nCipherString = DEFAULT@SECLEVEL=1' /etc/ssl/openssl.cnf
+  rm -rf instantclient-*.zip
 
 USER 1997
 
 ENV PATH="${PATH}:/opt/oracle/instantclient_19_12"
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt/oracle/instantclient_19_12"
-ENV OPENSSL_CONF="~/.openssl_allow_tls1.0.cnf"
+ENV OPENSSL_CONF="/var/lib/zabbix/.openssl_allow_tls1.0.cnf"
 
 RUN printf "openssl_conf = openssl_init\n\n[openssl_init]\nssl_conf = ssl_sect\n\n[ssl_sect]\nsystem_default = system_default_sect\n\n[system_default_sect]\nCipherString = DEFAULT@SECLEVEL=1" > ~/.openssl_allow_tls1.0.cnf
