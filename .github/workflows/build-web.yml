@@ -31,4 +31,4 @@ jobs:
           context: .
           file: Dockerfile-web
           push: true
-          tags: fgprodigal/zabbix-web-nginx-mysql:ubuntu-trunk
+          tags: fgprodigal/zabbix-web-nginx-mysql:ubuntu-latest
