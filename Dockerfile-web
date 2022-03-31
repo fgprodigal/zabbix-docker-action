@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-web-nginx-mysql:ubuntu-trunk
+FROM zabbix/zabbix-web-nginx-mysql:ubuntu-latest
 
 # USER root
 
