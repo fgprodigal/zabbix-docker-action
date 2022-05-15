@@ -13,6 +13,5 @@ RUN microdnf install yum && \
 ENV PATH="${PATH}:/usr/lib/oracle/21/client64/bin"
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/oracle/21/client64/lib"
 ENV OPENSSL_CONF="/var/lib/zabbix/.openssl_allow_tls1.0.cnf"
-ENV ORACLE_DIRVER="/usr/lib/oracle/21/client64/lib/libsqora.so.21.1"
 
 RUN printf "openssl_conf = openssl_init\n\n[openssl_init]\nssl_conf = ssl_sect\n\n[ssl_sect]\nsystem_default = system_default_sect\n\n[system_default_sect]\nCipherString = DEFAULT@SECLEVEL=1" > ~/.openssl_allow_tls1.0.cnf
