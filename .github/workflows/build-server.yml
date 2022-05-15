@@ -6,8 +6,9 @@ on:
   schedule:
     - cron: 0 16 * * *
   push:
-    branches:
-      - master
+    path:
+      - "Dockerfile-server"
+      - ".github/workflows/build-server.yml"
   watch:
     types: started
 
@@ -31,4 +32,4 @@ jobs:
           context: .
           file: Dockerfile-server
           push: true
-          tags: fgprodigal/zabbix-server-mysql:ubuntu-latest
+          tags: fgprodigal/zabbix-server-mysql:ol-latest

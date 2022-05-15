@@ -1,22 +1,17 @@
-FROM zabbix/zabbix-server-mysql:ubuntu-latest
+FROM zabbix/zabbix-server-mysql:ol-latest
 
 USER root
 
-RUN apt update && apt install -y curl gnupg libaio-dev unzip && \
-  curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
-  curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
-  apt update && \
-  ACCEPT_EULA=Y apt-get install -y msodbcsql18 && \
-  wget https://download.oracle.com/otn_software/linux/instantclient/1912000/instantclient-basic-linux.x64-19.12.0.0.0dbru.zip && \
-  wget https://download.oracle.com/otn_software/linux/instantclient/1912000/instantclient-odbc-linux.x64-19.12.0.0.0dbru.zip && \
-  unzip instantclient-basic-linux.x64-19.12.0.0.0dbru.zip -d /opt/oracle/ && \
-  unzip instantclient-odbc-linux.x64-19.12.0.0.0dbru.zip -d /opt/oracle/ && \
-  rm -rf instantclient-*.zip
+RUN microdnf install yum && \
+  microdnf install oracle-instantclient-release-el8 && \
+  microdnf install oracle-instantclient-basic && \
+  microdnf install oracle-instantclient-odbc && \
+  curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/mssql-release.repo && \
+  ACCEPT_EULA=Y yum install -y msodbcsql18 && \
+  yum clean all
 
-USER 1997
-
-ENV PATH="${PATH}:/opt/oracle/instantclient_19_12"
-ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt/oracle/instantclient_19_12"
+ENV PATH="${PATH}:/usr/lib/oracle/21/client64/bin"
+ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/oracle/21/client64/lib"
 ENV OPENSSL_CONF="/var/lib/zabbix/.openssl_allow_tls1.0.cnf"
 
 RUN printf "openssl_conf = openssl_init\n\n[openssl_init]\nssl_conf = ssl_sect\n\n[ssl_sect]\nsystem_default = system_default_sect\n\n[system_default_sect]\nCipherString = DEFAULT@SECLEVEL=1" > ~/.openssl_allow_tls1.0.cnf

@@ -6,8 +6,9 @@ on:
   schedule:
     - cron: 0 16 * * *
   push:
-    branches:
-      - master
+    path:
+      - "Dockerfile-web"
+      - ".github/workflows/build-web.yml"
   watch:
     types: started
 
