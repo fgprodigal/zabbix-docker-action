@@ -2,10 +2,10 @@ FROM zabbix/zabbix-server-mysql:ol-latest
 
 USER root
 
-RUN microdnf install yum && \
-  microdnf install oracle-instantclient-release-el8 && \
-  microdnf install oracle-instantclient-basic && \
-  microdnf install oracle-instantclient-odbc && \
+RUN microdnf install -y yum && \
+  microdnf install -y oracle-instantclient-release-el8 && \
+  microdnf install -y oracle-instantclient-basic && \
+  microdnf install -y oracle-instantclient-odbc && \
   curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/mssql-release.repo && \
   ACCEPT_EULA=Y yum install -y msodbcsql18 && \
   yum clean all
