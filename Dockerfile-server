@@ -5,8 +5,11 @@ USER root
 RUN apt update && \
   apt install -y curl zip gnupg && \
   wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
+  wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-odbc-linux.x64-21.9.0.0.0dbru.zip && \
   unzip instantclient-basic-linux.x64-21.9.0.0.0dbru.zip -d /usr/lib && \
+  unzip instantclient-odbc-linux.x64-21.9.0.0.0dbru.zip -d /usr/lib && \
   rm -rf instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
+  rm -rf instantclient-odbc-linux.x64-21.9.0.0.0dbru.zip && \
   mv /usr/lib/instantclient_21_9 /usr/lib/oracle && \
   echo /usr/lib/oracle/ > /etc/ld.so.conf.d/oracle.conf && \
   ldconfig && \
