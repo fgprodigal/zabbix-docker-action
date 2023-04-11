@@ -32,4 +32,4 @@ jobs:
           context: .
           file: Dockerfile-server
           push: true
-          tags: fgprodigal/zabbix-server-mysql:ol-latest
+          tags: fgprodigal/zabbix-server-mysql:ubuntu-latest
