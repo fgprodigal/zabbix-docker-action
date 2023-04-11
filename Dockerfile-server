@@ -22,4 +22,4 @@ ENV PATH="${PATH}:/usr/lib/oracle"
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/oracle"
 ENV OPENSSL_CONF="/var/lib/zabbix/.openssl_allow_tls1.0.cnf"
 
-RUN printf "openssl_conf = openssl_init\n\n[openssl_init]\nssl_conf = ssl_sect\n\n[ssl_sect]\nsystem_default = system_default_sect\n\n[system_default_sect]\nCipherString = DEFAULT@SECLEVEL=1" > ~/.openssl_allow_tls1.0.cnf
+RUN printf "openssl_conf = openssl_init\n\n[openssl_init]\nssl_conf = ssl_sect\n\n[ssl_sect]\nsystem_default = system_default_sect\n\n[system_default_sect]\nCipherString = DEFAULT@SECLEVEL=1" > /var/lib/zabbix/.openssl_allow_tls1.0.cnf
