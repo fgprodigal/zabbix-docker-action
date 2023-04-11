@@ -3,7 +3,7 @@ FROM zabbix/zabbix-server-mysql:ubuntu-latest
 USER root
 
 RUN apt update && \
-  apt install -y curl zip gnupg && \
+  apt install -y curl zip gnupg libaio1 libaio-dev && \
   wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
   wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-odbc-linux.x64-21.9.0.0.0dbru.zip && \
   unzip instantclient-basic-linux.x64-21.9.0.0.0dbru.zip -d /usr/lib && \
