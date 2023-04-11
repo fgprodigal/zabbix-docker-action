@@ -1,17 +1,21 @@
-FROM zabbix/zabbix-server-mysql:ol-latest
+FROM zabbix/zabbix-server-mysql:ubuntu-latest
 
 USER root
 
-RUN microdnf install -y yum && \
-  microdnf install -y oracle-instantclient-release-el8 && \
-  microdnf install -y oracle-instantclient-basic && \
-  microdnf install -y oracle-instantclient-odbc && \
-  curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/mssql-release.repo && \
-  ACCEPT_EULA=Y yum install -y msodbcsql18 && \
-  yum clean all
+RUN apt update && \
+  apt install curl && \
+  wget instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
+  unzip instantclient-basic-linux.x64-21.9.0.0.0dbru.zip -d /usr/lib && \
+  mv /usr/lib/instantclient_21_9 /usr/lib/oracle && \
+  echo /usr/lib/oracle/ > /etc/ld.so.conf.d/oracle.conf && \
+  ldconfig && \
+  curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+  curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
+  apt update && \
+  ACCEPT_EULA=Y apt install -y msodbcsql18
 
-ENV PATH="${PATH}:/usr/lib/oracle/21/client64/bin"
-ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/oracle/21/client64/lib"
+ENV PATH="${PATH}:/usr/lib/oracle"
+ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/oracle"
 ENV OPENSSL_CONF="/var/lib/zabbix/.openssl_allow_tls1.0.cnf"
 
 RUN printf "openssl_conf = openssl_init\n\n[openssl_init]\nssl_conf = ssl_sect\n\n[ssl_sect]\nsystem_default = system_default_sect\n\n[system_default_sect]\nCipherString = DEFAULT@SECLEVEL=1" > ~/.openssl_allow_tls1.0.cnf
