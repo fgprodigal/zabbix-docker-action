@@ -3,7 +3,7 @@ FROM zabbix/zabbix-server-mysql:ubuntu-latest
 USER root
 
 RUN apt update && \
-  apt install -y curl && \
+  apt install -y curl zip && \
   wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
   unzip instantclient-basic-linux.x64-21.9.0.0.0dbru.zip -d /usr/lib && \
   rm -rf instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
