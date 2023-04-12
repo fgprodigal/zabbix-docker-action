@@ -1,4 +1,4 @@
-name: Build Zabbix Web Image
+name: Build Zabbix Server Image Trunk
 
 on:
   release:
@@ -7,8 +7,8 @@ on:
     - cron: 0 16 * * *
   push:
     path:
-      - "Dockerfile-web"
-      - ".github/workflows/build-web.yml"
+      - "Dockerfile-server-trunk"
+      - ".github/workflows/build-server.yml"
   watch:
     types: started
 
@@ -30,6 +30,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile-web
+          file: Dockerfile-server
           push: true
-          tags: fgprodigal/zabbix-web-nginx-mysql:ubuntu-latest
+          tags: fgprodigal/zabbix-server-mysql:ubuntu-trunk

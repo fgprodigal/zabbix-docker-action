@@ -1,0 +1,25 @@
+FROM zabbix/zabbix-server-mysql:ubuntu-trunk
+
+USER root
+
+RUN apt update && \
+  apt install -y curl zip gnupg libaio1 libaio-dev && \
+  wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
+  wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-odbc-linux.x64-21.9.0.0.0dbru.zip && \
+  unzip instantclient-basic-linux.x64-21.9.0.0.0dbru.zip -d /usr/lib && \
+  unzip instantclient-odbc-linux.x64-21.9.0.0.0dbru.zip -d /usr/lib && \
+  rm -rf instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
+  rm -rf instantclient-odbc-linux.x64-21.9.0.0.0dbru.zip && \
+  mv /usr/lib/instantclient_21_9 /usr/lib/oracle && \
+  echo /usr/lib/oracle/ > /etc/ld.so.conf.d/oracle.conf && \
+  ldconfig && \
+  curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+  curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
+  apt update && \
+  ACCEPT_EULA=Y apt install -y msodbcsql18
+
+ENV PATH="${PATH}:/usr/lib/oracle"
+ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/oracle"
+ENV OPENSSL_CONF="/var/lib/zabbix/.openssl_allow_tls1.0.cnf"
+
+RUN printf "openssl_conf = openssl_init\n\n[openssl_init]\nssl_conf = ssl_sect\n\n[ssl_sect]\nsystem_default = system_default_sect\n\n[system_default_sect]\nCipherString = DEFAULT@SECLEVEL=1" > /var/lib/zabbix/.openssl_allow_tls1.0.cnf

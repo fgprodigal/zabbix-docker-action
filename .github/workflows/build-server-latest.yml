@@ -1,4 +1,4 @@
-name: Build Zabbix Server Image
+name: Build Zabbix Server Image Latest
 
 on:
   release:
@@ -7,7 +7,7 @@ on:
     - cron: 0 16 * * *
   push:
     path:
-      - "Dockerfile-server"
+      - "Dockerfile-server-latest"
       - ".github/workflows/build-server.yml"
   watch:
     types: started
