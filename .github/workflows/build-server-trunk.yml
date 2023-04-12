@@ -30,6 +30,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile-server
+          file: Dockerfile-server-trunk
           push: true
           tags: fgprodigal/zabbix-server-mysql:ubuntu-trunk

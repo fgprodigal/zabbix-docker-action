@@ -30,6 +30,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile-web
+          file: Dockerfile-web-latest
           push: true
           tags: fgprodigal/zabbix-web-nginx-mysql:ubuntu-latest
