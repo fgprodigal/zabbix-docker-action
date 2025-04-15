@@ -1,0 +1,6 @@
+FROM zabbix/zabbix-proxy-mysql:ubuntu-latest
+
+USER root
+
+RUN apt update && \
+  apt python3 python3-requests
