@@ -2,5 +2,10 @@ FROM zabbix/zabbix-proxy-mysql:ubuntu-latest
 
 USER root
 
+COPY scp.py /usr/lib/zabbix/externalscripts/scp.py
+
 RUN apt update && \
-  apt install -y python3 python3-requests
+  apt install -y python3 python3-requests && \
+  chmod +x /usr/lib/zabbix/externalscripts/scp.py && \
+  chown zabbix:zabbix /usr/lib/zabbix/externalscripts/scp.py
+
