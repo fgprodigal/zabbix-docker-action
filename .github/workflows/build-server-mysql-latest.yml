@@ -1,4 +1,4 @@
-name: Build Zabbix Server Image Trunk
+name: Build Zabbix Server Image Latest
 
 on:
   release:
@@ -7,7 +7,7 @@ on:
     - cron: 0 16 * * *
   push:
     path:
-      - "Dockerfile-server-trunk"
+      - "Dockerfile-server-mysql-latest"
       - ".github/workflows/build-server.yml"
   watch:
     types: started
@@ -30,6 +30,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile-server-trunk
+          file: Dockerfile-server-mysql-latest
           push: true
-          tags: fgprodigal/zabbix-server-mysql:ubuntu-trunk
+          tags: fgprodigal/zabbix-server-mysql:ubuntu-latest

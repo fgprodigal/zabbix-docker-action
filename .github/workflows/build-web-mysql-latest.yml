@@ -7,7 +7,7 @@ on:
     - cron: 0 16 * * *
   push:
     path:
-      - "Dockerfile-web-latest"
+      - "Dockerfile-web-mysql-latest"
       - ".github/workflows/build-web.yml"
   watch:
     types: started
@@ -30,6 +30,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile-web-latest
+          file: Dockerfile-web-mysql-latest
           push: true
           tags: fgprodigal/zabbix-web-nginx-mysql:ubuntu-latest

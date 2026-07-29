@@ -1,4 +1,4 @@
-name: Build Zabbix Server Image Latest
+name: Build Zabbix Proxy Image Latest
 
 on:
   release:
@@ -7,8 +7,8 @@ on:
     - cron: 0 16 * * *
   push:
     path:
-      - "Dockerfile-server-latest"
-      - ".github/workflows/build-server.yml"
+      - "Dockerfile-proxy-mysql-latest"
+      - ".github/workflows/build-proxy.yml"
   watch:
     types: started
 
@@ -30,6 +30,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile-server-latest
+          file: Dockerfile-proxy-mysql-latest
           push: true
-          tags: fgprodigal/zabbix-server-mysql:ubuntu-latest
+          tags: fgprodigal/zabbix-proxy-mysql:ubuntu-latest
