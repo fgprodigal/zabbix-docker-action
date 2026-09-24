@@ -2,10 +2,8 @@ FROM zabbix/zabbix-server-mysql:ubuntu-latest
 
 USER root
 
-COPY scp.py /usr/lib/zabbix/externalscripts/scp.py
-
 RUN apt update && \
-  apt install -y curl zip gnupg libaio-dev python3 python3-requests && \
+  apt install -y --no-install-recommends curl zip gnupg libaio-dev && \
   wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
   wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-odbc-linux.x64-21.9.0.0.0dbru.zip && \
   unzip instantclient-basic-linux.x64-21.9.0.0.0dbru.zip -d /usr/lib && \
@@ -20,8 +18,7 @@ RUN apt update && \
   dpkg -i packages-microsoft-prod.deb && \
   apt update && \
   ACCEPT_EULA=Y apt install -y msodbcsql18 && \
-  chmod +x /usr/lib/zabbix/externalscripts/scp.py && \
-  chown zabbix:zabbix /usr/lib/zabbix/externalscripts/scp.py
+  rm -rf /var/lib/apt/lists/*
 
 ENV PATH="${PATH}:/usr/lib/oracle"
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/oracle"

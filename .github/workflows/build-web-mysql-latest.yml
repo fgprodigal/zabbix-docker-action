@@ -5,10 +5,12 @@ on:
     types: [published]
   schedule:
     - cron: 0 16 * * *
+  workflow_dispatch:
   push:
-    path:
+    paths:
       - "Dockerfile-web-mysql-latest"
-      - ".github/workflows/build-web.yml"
+      - "msyh.ttf"
+      - ".github/workflows/build-web-mysql-latest.yml"
   watch:
     types: started
 
